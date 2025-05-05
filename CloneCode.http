@@ -1,0 +1,6 @@
+@CloneCode_HostAddress = http://localhost:5070
+
+GET {{CloneCode_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
