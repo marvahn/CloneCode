@@ -1,5 +1,4 @@
-using CloneCode.Database;
-using CloneCode.Entity;
+using CloneCode.Domains.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CloneCode.Controllers
@@ -8,19 +7,14 @@ namespace CloneCode.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private DatabaseContext _context;
-
-        public WeatherForecastController(DatabaseContext context)
+        public WeatherForecastController()
         {
-            this._context = context;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
         public List<Book> Get()
         {
-            List<Book> list = this._context.Books.ToList();
-
-            return list;
+            return null;
         }
     }
 }
