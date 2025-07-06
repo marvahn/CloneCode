@@ -1,6 +1,5 @@
 ﻿using CloneCode.Application.DTOs.Response;
 using CloneCode.Application.Interface;
-using CloneCode.Entity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CloneCode.Controllers

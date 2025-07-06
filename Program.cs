@@ -1,4 +1,3 @@
-using CloneCode.Setting;
 using System.Reflection.PortableExecutable;
 using static System.Net.Mime.MediaTypeNames;
 using Microsoft.Extensions.Configuration;
@@ -6,16 +5,19 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Supabase;
 using Microsoft.Extensions.Options;
-using CloneCode.Models;
 using CloneCode.Application.Interface;
 using CloneCode.Infrastructure.Services;
+using CloneCode.Infrastructure.Models;
+using CloneCode.Infrastructure.Middleware.JwtAuthentication;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddJwtAuthentication(builder.Configuration);
 
 builder.Services.AddControllers();
+builder.Services.AddSingleton<JwtTokenService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -40,6 +42,7 @@ builder.Services.AddSingleton(sp =>
 });
 
 builder.Services.AddSingleton<ISupabaseService, SupabaseService>();
+builder.Services.AddSingleton<ITokenService, JwtTokenService>();
 
 
 var app = builder.Build();

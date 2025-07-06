@@ -1,5 +1,4 @@
 ﻿using CloneCode.Application.DTOs.Response;
-using CloneCode.Entity;
 
 namespace CloneCode.Application.Interface
 {
