@@ -1,5 +1,6 @@
 ﻿using CloneCode.Application.DTOs.Response;
 using CloneCode.Application.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CloneCode.Controllers
@@ -15,9 +16,10 @@ namespace CloneCode.Controllers
         }
 
         [HttpGet(Name = "BookGet")]
+        [Authorize(Roles = "Admin")]
         public async Task<List<ResponseBook>> BookGet()
         {
             return await _supabaseService.GetBookAsync();
         }
     }
-}
+}   

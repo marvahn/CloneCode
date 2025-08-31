@@ -1,11 +1,12 @@
-﻿using CloneCode.Application.Interface;
+﻿using CloneCode.Application.DTOs.Request;
+using CloneCode.Application.Interface;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 
 namespace CloneCode.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("[controller]/[action]")]
     public class TokenController : Controller
     {
         private ITokenService _tokenService;
@@ -15,11 +16,11 @@ namespace CloneCode.Controllers
             _tokenService = tokenService;
         }
 
-        [HttpGet(Name = "AccessToken")]
+        [HttpPost(Name = "AccessToken")]
 
-        public string AccessToken()
+        public async Task<string> AccessToken([FromBody] RequestToken requestData)
         {
-            return JsonSerializer.Serialize(new { accesstoken = _tokenService.GenerateToken("id0123") });
+            return JsonSerializer.Serialize(new { accessToken = await _tokenService.GenerateToken(requestData.UserId), refreshToken = _tokenService.GenerateRefreshToken() });
         }
     }
 }

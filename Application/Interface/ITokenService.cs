@@ -2,6 +2,8 @@
 {
     public interface ITokenService
     {
-        string GenerateToken(string username);
+        Task<string> GenerateToken(string username);
+
+        string GenerateRefreshToken(int length = 32);
     }
 }

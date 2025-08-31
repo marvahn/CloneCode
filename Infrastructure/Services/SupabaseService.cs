@@ -20,7 +20,14 @@ namespace CloneCode.Infrastructure.Services
 
             return response.Models.Select(p => new ResponseBook
             {
-                Title = p.Title
+                Id = p.Id,
+                Title = p.Title,
+                Subtitle = p.Subtitle,
+                Description = p.Description,
+                Author = p.Author,
+                Publisher = p.Publisher,
+                ConverImgUrl = p.ConverImgUrl
+
             }).ToList();
 
         }

@@ -1,14 +1,15 @@
-using System.Reflection.PortableExecutable;
-using static System.Net.Mime.MediaTypeNames;
+using CloneCode.Application.Interface;
+using CloneCode.Infrastructure.Extension;
+using CloneCode.Infrastructure.Middleware.JwtAuthentication;
+using CloneCode.Infrastructure.Models;
+using CloneCode.Infrastructure.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Supabase;
 using Microsoft.Extensions.Options;
-using CloneCode.Application.Interface;
-using CloneCode.Infrastructure.Services;
-using CloneCode.Infrastructure.Models;
-using CloneCode.Infrastructure.Middleware.JwtAuthentication;
+using Supabase;
+using System.Reflection.PortableExecutable;
+using static System.Net.Mime.MediaTypeNames;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,7 +21,7 @@ builder.Services.AddControllers();
 builder.Services.AddSingleton<JwtTokenService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerWithJwt();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("", policy => { policy.WithOrigins("*"); });
@@ -52,6 +53,11 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    //app.UseSwaggerUI(c =>
+    //    {
+    //        c.SwaggerEndpoint("/swagger/v1/swagger.json", "CloneCode API V1");
+    //    }
+    //);
 }
 
 
