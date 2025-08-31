@@ -18,4 +18,8 @@
     <Folder Include="Infrastructure\Database\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include=".github\workflows\main.yaml" />
+  </ItemGroup>
+
 </Project>

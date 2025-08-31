@@ -1,0 +1,25 @@
+﻿name: CloneCode Publish
+
+on:
+  push:
+    branches: ["master"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set environment variables
+      - id: set_env
+        run: |
+          echo "ASPNETCORE_ENVIRONMENT=Production" >> $GITHUB_OUTPUT
+          echo "DOCKER_PORT=3000" >> $GITHUB_OUTPUT
+
+      - uses: actions/checkout@v4
+
+      - name: Build The Docker Image
+        run: |
+          docker build \
+            --build-arg DOTNET_ENV=${{ steps.set_env.outputs.ASPNETCORE_ENVIRONMENT }} \
+            --build-arg PORT=${{ steps.set_env.outputs.DOCKER_PORT }} \
+            -t clonecodeapi:latest .
