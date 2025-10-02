@@ -11,7 +11,7 @@ namespace CloneCode.Domains.Models
         [Column("title")]
         public string Title { get; set; }
 
-        [Column("subTitle")]
+        [Column("subTitle")] 
         public string Subtitle { get; set; } = string.Empty;
 
         [Column("description")]
