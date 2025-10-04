@@ -23,3 +23,11 @@ jobs:
             --build-arg DOTNET_ENV=${{ steps.set_env.outputs.ASPNETCORE_ENVIRONMENT }} \
             --build-arg PORT=${{ steps.set_env.outputs.DOCKER_PORT }} \
             -t clonecodeapi:latest .
+
+      - name: Run Docker Container (for Testing, Optional)
+        # 이미지 빌드가 성공했는지 확인하기 위한 선택적 테스트 단계
+        run: |
+          docker run -d -p 8080:3000 --name test-clonecode clonecodeapi:latest
+          # 30초 대기 후 로그 확인
+          sleep 30
+          docker logs test-clonecode

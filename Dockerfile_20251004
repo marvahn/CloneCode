@@ -1,19 +1,18 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG DOTNET_ENV
-ARG PORT
-WORKDIR /src
+WORKDIR /app
 
-COPY ["CloneCode.csproj", "."]
-RUN dotnet restore "CloneCode.csproj"
+COPY *.sln ./
+COPY *.csproj ./
+RUN dotnet restore
 
-COPY . .
-RUN dotnet publish "CloneCode.csproj" -c Release -o /app/publish --no-restore
+COPY . ./
+RUN dotnet publish -c Debug -o ./publish
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS runtime
-WORKDIR /src
 
 ENV ASPNETCORE_ENVIRONMENT=${DOTNET_ENV}
 ENV ASPNETCORE_URLS=http://+:${PORT}
+WORKDIR /app
 COPY --from=build ./app/publish .
 
 EXPOSE 3000
